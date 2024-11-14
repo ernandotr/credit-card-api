@@ -1,4 +1,4 @@
-package dev.eernandorezende.credit_card_api.domain;
+package dev.eernandorezende.credit_card_api.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

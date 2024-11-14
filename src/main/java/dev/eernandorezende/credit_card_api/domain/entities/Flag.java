@@ -1,8 +1,10 @@
-package dev.eernandorezende.credit_card_api.domain;
+package dev.eernandorezende.credit_card_api.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 @Entity
 @Table(name = "tb_flag")
