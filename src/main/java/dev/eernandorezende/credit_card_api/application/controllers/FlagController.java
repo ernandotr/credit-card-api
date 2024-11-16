@@ -2,7 +2,6 @@ package dev.eernandorezende.credit_card_api.application.controllers;
 
 import dev.eernandorezende.credit_card_api.application.requests.FlagRequest;
 import dev.eernandorezende.credit_card_api.application.responses.FlagResponse;
-import dev.eernandorezende.credit_card_api.domain.entities.Flag;
 import dev.eernandorezende.credit_card_api.domain.services.FlagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -3,15 +3,17 @@ package dev.eernandorezende.credit_card_api.domain.services;
 import dev.eernandorezende.credit_card_api.application.requests.FlagRequest;
 import dev.eernandorezende.credit_card_api.application.responses.FlagResponse;
 import dev.eernandorezende.credit_card_api.domain.entities.Flag;
+import dev.eernandorezende.credit_card_api.domain.exceptions.FlagNotFoundException;
 import dev.eernandorezende.credit_card_api.infra.repositories.FlagRepository;
 import jakarta.annotation.Resource;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-@Service
 @RequiredArgsConstructor
+@Service
 public class FlagService {
     private final FlagRepository flagRepository;
 
@@ -20,7 +22,7 @@ public class FlagService {
     }
 
     public FlagResponse getById(Integer id) {
-        return flagRepository.findById(id).map(this::toResponse).orElseThrow(RuntimeException::new);
+        return flagRepository.findById(id).map(this::toResponse).orElseThrow(FlagNotFoundException::new);
     }
 
     public FlagResponse create(FlagRequest request) {
@@ -30,7 +32,7 @@ public class FlagService {
     }
 
     public void update(FlagRequest request, Integer id) {
-        Flag flag = flagRepository.findById(id).orElseThrow(RuntimeException::new);
+        Flag flag = flagRepository.findById(id).orElseThrow(FlagNotFoundException::new);
         flag.setName(request.name());
         flagRepository.save(flag);
     }
@@ -47,3 +49,4 @@ public class FlagService {
         return Flag.builder().name(request.name()).build();
     }
 }
+
