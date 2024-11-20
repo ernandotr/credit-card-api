@@ -18,8 +18,7 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String holder;
+    private Long id;
     private String validThru;
     private Short cvc;
     private String number;
@@ -28,8 +27,13 @@ public class Card {
     private BigDecimal usedLimit;
     private String cardName;
     private Byte invoiceDueDay;
+    private String holderName;
 
     @ManyToOne
     @JoinColumn(name = "flag_id")
     private Flag flag;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 }
