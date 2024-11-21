@@ -27,7 +27,7 @@ public class CardService {
         return cardRepository.findAll().stream().map( this::toResponse).toList();
     }
 
-    private CardResponse getById(Integer id) {
+    public CardResponse getById(Long id) {
         return cardRepository.findById(id).map(this::toResponse).orElseThrow(CardNotFoundException::new);
     }
     public CardResponse create(CardRequest request) {

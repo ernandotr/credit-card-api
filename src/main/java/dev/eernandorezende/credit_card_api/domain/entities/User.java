@@ -22,6 +22,7 @@ public class User {
     private String name;
     private String email;
     private String password;
+    @OneToMany
     private Set<Role> roles;
 
 }
