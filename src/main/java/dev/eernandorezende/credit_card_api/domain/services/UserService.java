@@ -6,17 +6,19 @@ import dev.eernandorezende.credit_card_api.domain.entities.Role;
 import dev.eernandorezende.credit_card_api.domain.entities.User;
 import dev.eernandorezende.credit_card_api.domain.exceptions.UserNotFoundException;
 import dev.eernandorezende.credit_card_api.infra.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public UserResponse create(UserRequest request) {
         var user = toEntity(request);
@@ -40,11 +42,7 @@ public class UserService {
     }
 
     private User toEntity(UserRequest request) {
-        return User.builder()
-                .name(request.name())
-                .email(request.email())
-                .password(request.password())
-                .build();
+        return new User(request.name(), request.email(), request.password(), new HashSet<>());
     }
 
     private static Set<String> getRoles(Set<Role> roles) {

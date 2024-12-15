@@ -1,11 +1,7 @@
 package dev.eernandorezende.credit_card_api.application;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Date;
 
-@Getter @Setter
 public class ErrorDetails {
 
     private Date timestamp;

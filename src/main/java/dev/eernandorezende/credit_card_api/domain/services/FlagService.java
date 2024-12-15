@@ -5,17 +5,16 @@ import dev.eernandorezende.credit_card_api.application.responses.FlagResponse;
 import dev.eernandorezende.credit_card_api.domain.entities.Flag;
 import dev.eernandorezende.credit_card_api.domain.exceptions.FlagNotFoundException;
 import dev.eernandorezende.credit_card_api.infra.repositories.FlagRepository;
-import jakarta.annotation.Resource;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@RequiredArgsConstructor
 @Service
 public class FlagService {
     private final FlagRepository flagRepository;
+
+    public FlagService(FlagRepository flagRepository) {
+        this.flagRepository = flagRepository;
+    }
 
     public List<FlagResponse> getAll(){
         return flagRepository.findAll().stream().map(this::toResponse).toList();
@@ -46,7 +45,7 @@ public class FlagService {
     }
 
     private Flag toEntity(FlagRequest request) {
-        return Flag.builder().name(request.name()).build();
+        return new Flag(request.name());
     }
 }
 

@@ -3,17 +3,18 @@ package dev.eernandorezende.credit_card_api.application.controllers;
 import dev.eernandorezende.credit_card_api.application.requests.UserRequest;
 import dev.eernandorezende.credit_card_api.application.responses.UserResponse;
 import dev.eernandorezende.credit_card_api.domain.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService  userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping
     public ResponseEntity<UserResponse> create(@RequestBody UserRequest request) {

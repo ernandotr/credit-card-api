@@ -9,19 +9,23 @@ import dev.eernandorezende.credit_card_api.domain.exceptions.UserNotFoundExcepti
 import dev.eernandorezende.credit_card_api.infra.repositories.CardRepository;
 import dev.eernandorezende.credit_card_api.infra.repositories.FlagRepository;
 import dev.eernandorezende.credit_card_api.infra.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
 public class CardService {
 
-    private  final CardRepository cardRepository;
+    private final CardRepository cardRepository;
     private final FlagRepository flagRepository;
     private final UserRepository userRepository;
+
+    public CardService(CardRepository cardRepository, FlagRepository flagRepository, UserRepository userRepository) {
+        this.cardRepository = cardRepository;
+        this.flagRepository = flagRepository;
+        this.userRepository = userRepository;
+    }
 
     public List<CardResponse> getAll() {
         return cardRepository.findAll().stream().map( this::toResponse).toList();
@@ -48,7 +52,7 @@ public class CardService {
         entity.setTotalLimit(request.maxLimit());
         entity.setInvoiceDueDay(request.invoiceDueDay());
 
-        entity = cardRepository.save(entity);
+        cardRepository.save(entity);
 
     }
 
@@ -64,18 +68,17 @@ public class CardService {
         var index = request.number().length() - 4;
         var flag = flagRepository.findById(request.flagId()).orElseThrow(FlagNotFoundException::new);
         var user = userRepository.findById(request.userId()).orElseThrow(UserNotFoundException::new);
-        return Card.builder()
-                .cardName(request.name())
-                .number(request.number())
-                .holderName(request.holderName())
-                .lastDigits(request.number().substring(index))
-                .cvc(request.cvc())
-                .validThru(request.validThru())
-                .totalLimit(request.maxLimit())
-                .usedLimit(BigDecimal.ZERO)
-                .user(user)
-                .flag(flag)
-                .build();
-
+        Card card = new Card();
+        card.setCardName(request.name());
+        card.setNumber(request.number());
+        card.setHolderName(request.holderName());
+        card.setLastDigits(request.number().substring(index));
+        card.setCvc(request.cvc());
+        card.setValidThru(request.validThru());
+        card.setTotalLimit(request.maxLimit());
+        card.setUsedLimit(BigDecimal.ZERO);
+        card.setUser(user);
+        card.setFlag(flag);
+        return card;
     }
 }

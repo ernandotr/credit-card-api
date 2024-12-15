@@ -14,7 +14,7 @@ import java.util.Date;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(FlagNotFoundException.class)
-    public ResponseEntity<?> handleUserNotFoundException(FlagNotFoundException ex, WebRequest request) {
+    public ResponseEntity<ErrorDetails> handleUserNotFoundException(FlagNotFoundException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }

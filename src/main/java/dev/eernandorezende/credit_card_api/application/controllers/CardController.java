@@ -3,18 +3,20 @@ package dev.eernandorezende.credit_card_api.application.controllers;
 import dev.eernandorezende.credit_card_api.application.requests.CardRequest;
 import dev.eernandorezende.credit_card_api.application.responses.CardResponse;
 import dev.eernandorezende.credit_card_api.domain.services.CardService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/cards")
 public class CardController {
 
     private final CardService service;
+
+    public CardController(CardService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<CardResponse>> getAll() {

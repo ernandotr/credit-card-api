@@ -3,18 +3,20 @@ package dev.eernandorezende.credit_card_api.application.controllers;
 import dev.eernandorezende.credit_card_api.application.requests.FlagRequest;
 import dev.eernandorezende.credit_card_api.application.responses.FlagResponse;
 import dev.eernandorezende.credit_card_api.domain.services.FlagService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/flags")
 public class FlagController {
 
     private final FlagService flagService;
+
+    public FlagController(FlagService flagService) {
+        this.flagService = flagService;
+    }
 
     @GetMapping
     public ResponseEntity<List<FlagResponse>> getAll() {
