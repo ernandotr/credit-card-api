@@ -1,4 +1,4 @@
-package dev.eernandorezende.credit_card_api.application;
+package dev.eernandorezende.credit_card_api.domain.exceptions;
 
 import java.util.Date;
 

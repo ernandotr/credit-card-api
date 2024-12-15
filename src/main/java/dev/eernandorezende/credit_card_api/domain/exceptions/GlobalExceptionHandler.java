@@ -1,7 +1,5 @@
-package dev.eernandorezende.credit_card_api.application;
+package dev.eernandorezende.credit_card_api.domain.exceptions;
 
-import dev.eernandorezende.credit_card_api.domain.exceptions.CardNotFoundException;
-import dev.eernandorezende.credit_card_api.domain.exceptions.FlagNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
